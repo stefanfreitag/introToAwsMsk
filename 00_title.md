@@ -1,175 +1,89 @@
 <!-- markdownlint-disable MD012 MD014 -->
 
-# Managing Kafka
+# Introduction to AWS Managed Streaming for Apache Kafka
 
 
 
-## What is Kafka
+## What we will do
 
-> * Open-source stream-processing software platform
-> * Aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds
-> * Massively scalable pub/sub message queue designed as a distributed transaction log
+Getting a Kafka cluster up'n' running (dry-run)
 
-[Source](https://en.wikipedia.org/wiki/Apache_Kafka)
+* Current approach
+* Using AWS MSK
 
 
 
-## Exisiting installations
+### Current/ Non-managed approach
 
-|           |  Node 1   | Node 2   | Node 3  
-|   ---     |   ---     |   ---    |  ---
-| Zookeeper | ln000111  | ln000112 | ln000113
-|  Kafka    | ln000114  | ln000115 | ln000116
 
-Production environment (All sub-teams)
+#### Hardware
 
+<img src="images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg" alt="" height="500px%"/>
 
-|             |  Node 1   | Node 2   | Node 3  
-|---          |   ---     |   ---    | ---
-| Zookeeper   | ln000106  | ln000107 | ln000108
-|  Kafka      | ln000103  | ln000104 | ln000105
+Note:
 
-Staging environment (All sub-teams)
+* Request 3 EC2 instances for Kafka
+* Request 3 EC2 instances for Zookeeper
+* Request additional EC2 instances (Prometheus, Grafana, ...)
 
 
-|           |  Node 1
-|  ---      |  --- |
-| Zookeeper |  lb001460 |
-|  Kafka    |  lbeu0010 |
+#### Firewall
 
-UAT (Java)
+<img src="images/israel-palacio-ImcUkZ72oUs-unsplash.jpg" alt="" height="500px%"/>
 
+Note:
 
-### Side note
+* Kafka broker &hArr; Zookeeper
+* Kafka broker &hArr; Kafka broker
+* Kafka &hArr; Clients
+* Zookeeper &hArr; Clients
 
-... and more in other teams
+* Prometheus &hArr; Zookeeper
+* Prometheus &hArr; Kafka
 
-* Endur SOLID
-* Production and Development environment in CPD
 
+#### Installation and configuration
 
-## How ours were setup
+<img src="images/chris-yates-iqELIpzpARI-unsplash.jpg" alt="" height="500px%"/>
 
-* Chef cookbooks for all environments
-* Separate cookbooks for
-  * Kafka cluster/ Zookeeper cluster
-  * Single node Kafka/ Single node Zookeeper
+Note:
 
+* Manual or
+* Chef cookbooks
 
-### Applied changes
 
-* Kafka Manager  
-  * Disable start of service at boot time
-  * Version upgrade
-* Kafka  
-  * Configuration settings
-    * Data retention
-    * Security (UAT)
+#### Any other business
 
+* Security
+  * Skip it for now
+* Monitoring
+  * Prometheus
+  * Grafana
+  * Chef cookbooks
 
-* Other bits 'n' bites I am not aware of
-* Changes may be reflected in Chef cookbooks
 
+#### Heppa
 
-... or not.
+<img src="https://media.giphy.com/media/SxRtWCV8yOYGk/giphy.gif"/>
 
 
-* Imho no one knows
-  * the exact configuration of the services
-  * what happens when the cookbooks are re-run
 
+### MSK-managed approach
 
-![Alt Text](https://media.giphy.com/media/wuc6lU7kbu6wE/giphy.gif)
 
+#### Why managed Kafka
 
-## Immutable Infrastructure
+* Kafka clusters are challenging to setup, scale, and manage
+  * Replacements, maintenance, and upgrades
+  * HA setup
+  * Monitoring and alarming
+  * Durable datastore
 
-> [...] infrastructure paradigm in which servers are never modified after they're deployed. If something needs to be updated, fixed, or modified in any way, new servers built from a common image with the appropriate changes are provisioned to replace the old ones. After they're validated, they're put into use and the old ones are decommissioned.
-
-[Source](https://www.digitalocean.com/community/tutorials/what-is-immutable-infrastructure)
-
-
-### In Short
-
-![Alt Text](https://media.giphy.com/media/KBE8Xk9qeZVWhPz5MX/giphy.gif)
-
-
-
-## Chef
-
-
-### What can be managed
-
-* OS-related settings
-  * software packages
-  * logrotate, cron
-
-* Basic configuration
-  * Kafka, Kafka Manager, JMX Exporter
-* Security related configuration
-  * Kafka
-
-
-### Recommended way
-
-Setup a local dev environment
-
-* Install
-  * Chef Development Kit or Workstation
-* Checkout cookbook repository
-* Apply change to cookbook/ recipes
-* Test changes
-* Increment version in metadata.rb
-* Commit, push and create pull request
-
-
-### For the are brave
-
-![Alt Text](https://media.giphy.com/media/xUA7b9BGCRbVlYnnLq/giphy.gif)
-
-* Apply change to cookbook/ recipes
-* Increment version in metadata.rb
-* Commit and push
-
-
-
-# Demo Time
-
-* Cookbook file
-* Template
-* User and ACL
-
-
-# Backup slides
-
-
-## Assigning cookbooks
-
-* Cloud Eco Hub
-  * Manage run list
-* knife
-  * comes with Chef DK/ Workstation
-  * requires personalized certificate
-
-
-## Applying cookbooks
-
-
-* Cloud Eco Hub
-  * Initiate Chef client
-* Login to host and trigger chef-client manually
-* cron job
-
+_Less time managing infrastructure, more time creating value._
 
 
 ## Further information
 
-* [Chef](https://www.chef.io/)
-* [Chef Development Kit](https://downloads.chef.io/chefdk)
-* [Chef Workstation](https://downloads.chef.io/chef-workstation/stable)
 * [Kafka](https://kafka.apache.org/)
-* [Kafka cookbook for clustered setup](http://stash.rwe.com/projects/CHEF/repos/rwest_caogasce_kafka/browse)
-* [Kafka cookbook for single instance setup](http://stash.rwe.com/projects/CHEF/repos/rwest_caogasce_kafka_single/browse)
 * [Zookeeper](https://zookeeper.apache.org/)
-* [Zookeeper](http://stash.rwe.com/projects/CHEF/repos/rwest_caogasce_zookeeper_single/browse)
-* [Kafka Manager](https://github.com/yahoo/kafka-manager)
+* [AWS MSK](https://aws.amazon.com/msk/?)
