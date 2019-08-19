@@ -9,7 +9,7 @@
     "test": "grunt test",
     "start": "grunt serve",
     "build": "grunt",
-    "package" : "grunt package"
+    "package": "grunt package"
   },
   "author": {
     "name": "Hakim El Hattab",
