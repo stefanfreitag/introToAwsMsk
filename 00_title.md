@@ -55,7 +55,9 @@ Note:
 #### Any other business
 
 * Security
-  * Skip it for now
+  * Client &hArr; Broker
+  * Broker &hArr; Broker
+  * Broker &hArr; Zookeeper
 * Monitoring
   * Prometheus
   * Grafana
@@ -64,6 +66,8 @@ Note:
 #### Done
 
 <img src="https://media.giphy.com/media/SxRtWCV8yOYGk/giphy.gif"/>
+
+It just takes a few days.
 
 
 
@@ -83,7 +87,7 @@ _Less time managing infrastructure, more time creating value._
 
 #### How
 
-
+* Manual approach
 * Login to AWS Console
 
 
@@ -105,7 +109,6 @@ _Less time managing infrastructure, more time creating value._
 * Set VPC ID
 * Set availability zone to _eu-west-1b_
 * Set IPv4 CIDR block to _10.0.1.0/24_
-* _Create_
 
 
 Routing
@@ -113,7 +116,6 @@ Routing
 * Select the created subnet
 * Select _Edit route table association_
 * Set route id from first subnet
-
 
 * Repeat steps for 3rd subnet
 
@@ -131,13 +133,24 @@ Routing
 * Encryption: _Only plaintext traffic allowed_
 
 
-### TODO Test connection to cluster by setting up a client
+### Using AWS CDK
+
+* Open VS Code
 
 
-### TODO Delete the cluster
+
+### Wrap Up - What changes for MSK
+
+* Only get Kafka and Zookeeper endpoints
+* Default Kafka configuration can be tweaked
+* Monitoring via CloudWatch
+* Deployment of jar files not possible
+
+
 
 ## Further information
 
+* [AWS CDK](https://github.com/aws/aws-cdk)
+* [AWS MSK](https://aws.amazon.com/msk/)
 * [Kafka](https://kafka.apache.org/)
 * [Zookeeper](https://zookeeper.apache.org/)
-* [AWS MSK](https://aws.amazon.com/msk/?)
