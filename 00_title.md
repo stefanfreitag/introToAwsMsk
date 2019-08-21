@@ -6,14 +6,14 @@
 
 ## What we will do
 
-Getting a Kafka cluster up'n' running (dry-run)
+Getting a Kafka cluster up'n' running
 
-* Current approach
+* Manual approach
 * Using AWS MSK
 
 
 
-### Current/ Non-managed approach
+### Manual approach
 
 
 #### Hardware
@@ -22,9 +22,9 @@ Getting a Kafka cluster up'n' running (dry-run)
 
 Note:
 
-* Request 3 EC2 instances for Kafka
-* Request 3 EC2 instances for Zookeeper
-* Request additional EC2 instances (Prometheus, Grafana, ...)
+* Request 3 EC2 instances for Apache Kafka
+* Request 3 EC2 instances for Apache Zookeeper
+* Request additional EC2 instances for hosting e. g.Prometheus and Grafana
 
 
 #### Firewall
@@ -37,7 +37,6 @@ Note:
 * Kafka broker &hArr; Kafka broker
 * Kafka &hArr; Clients
 * Zookeeper &hArr; Clients
-
 * Prometheus &hArr; Zookeeper
 * Prometheus &hArr; Kafka
 
@@ -48,8 +47,8 @@ Note:
 
 Note:
 
-* Manual or
-* Chef cookbooks
+* Manual
+* Automated (Ansible, Chef, Puppet, ...)
 
 
 #### Any other business
@@ -67,11 +66,14 @@ Note:
 
 <img src="https://media.giphy.com/media/SxRtWCV8yOYGk/giphy.gif"/>
 
-It just takes a few days.
+
+Downside
+
+_It just takes a few days._
 
 
 
-### MSK-managed approach
+### Managed solution - AWS MSK
 
 
 #### Why
@@ -87,11 +89,14 @@ _Less time managing infrastructure, more time creating value._
 
 #### How
 
-* Manual approach
 * Login to AWS Console
 
 
-##### Create the VPC
+##### VPC
+
+<img src="./images/thomas-jensen-qTEj-KMMq_Q-unsplash.jpg" alt="" height="500px%"/>
+
+Note:
 
 * Select _VPC_
 * Select _Launch VPC Wizard_
@@ -101,7 +106,9 @@ _Less time managing infrastructure, more time creating value._
 * Set subnet name to _AWSKafkaTutorialSubnet-1_
 
 
-##### Preps for High Availability
+##### High Availability
+
+Note:
 
 * Select created VPC
 * Select _Create Subnet_ 
@@ -113,6 +120,8 @@ _Less time managing infrastructure, more time creating value._
 
 Routing
 
+Note:
+
 * Select the created subnet
 * Select _Edit route table association_
 * Set route id from first subnet
@@ -121,6 +130,10 @@ Routing
 
 
 ##### Cluster Time
+
+<img src="./images/kent-pilcher-jW8hkB_Qmj8-unsplash.jpg" alt="" height="500px%"/>
+
+Note:
 
 * Select _Amazon MSK_
 * Select _Create Cluster_
@@ -135,17 +148,16 @@ Routing
 
 ### Using AWS CDK
 
-* Open VS Code
+* [Github](https://github.com/stefanfreitag/msk_demo)
 
 
 
-### Wrap Up - What changes for MSK
+### Wrap Up
 
-* Only get Kafka and Zookeeper endpoints
+* Serverless: MSK provides Kafka and Zookeeper endpoints
 * Default Kafka configuration can be tweaked
 * Monitoring via CloudWatch
 * Deployment of jar files not possible
-
 
 
 ## Further information
@@ -153,4 +165,6 @@ Routing
 * [AWS CDK](https://github.com/aws/aws-cdk)
 * [AWS MSK](https://aws.amazon.com/msk/)
 * [Kafka](https://kafka.apache.org/)
+* [Grafana](https://github.com/grafana/grafana)
+* [Prometheus](https://prometheus.io/)
 * [Zookeeper](https://zookeeper.apache.org/)
